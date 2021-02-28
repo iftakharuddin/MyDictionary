@@ -22,8 +22,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     BigInteger p = new BigInteger("100123456789");
     int m = 103650;
-    BigInteger a = new BigInteger("4564645453");
-    BigInteger b = new BigInteger("6862654442");
+    Random random = new Random();
+    BigInteger a = BigInteger.valueOf(1 + random.nextInt(p.intValue()-1));
+    BigInteger b = BigInteger.valueOf(random.nextInt(p.intValue()));
     Data[] data = new Data[m];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String searchWord = editText.getText().toString().toLowerCase();
+                String searchWord = editText.getText().toString().toLowerCase().trim();
                 BigInteger key = getKey(searchWord);
                 int i = Hash1(key, a, b);
                 int j = Hash2(key, BigInteger.valueOf(data[i].aj), BigInteger.valueOf(data[i].bj), BigInteger.valueOf(data[i].mj));
